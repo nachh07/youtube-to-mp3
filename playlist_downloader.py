@@ -8,7 +8,7 @@ class PlaylistDownloader(SongDownloader):
              
     def download_songs(self) -> None: 
         if not self.playlist:
-            print("La lista de reproducción está vacía.")
+            print("La lista de reproducción está vacía o es privada.")
             return None
         for url in self.playlist: 
             self.download_song(url)

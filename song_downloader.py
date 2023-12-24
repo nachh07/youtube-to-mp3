@@ -41,10 +41,9 @@ class SongDownloader:
             new_file = base + '.mp3'
             os.rename(downloaded_file, os.path.join(self.export_path, new_file))
             print(f"La canción se ha descargado correctamente en la siguiente ruta:" + self.export_path)
-        except FileExistsError as e: 
+        except FileExistsError: 
             print(f"La canción {song_title} descargar, ya existe en su dispositivo.")
             for downloaded_file in os.listdir(self.export_path):
                 if re.search('mp4', downloaded_file):
                     mp4_path = os.path.join(self.export_path,downloaded_file)
                     os.remove(mp4_path)
-

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Carpeta</title>
+</head>
+<body>
+    <form action="/download" method="post">
+        <label for="urls">URLs (separadas por comas o saltos de línea):</label>
+        <textarea id="urls" name="urls" rows="4" cols="50" required></textarea>
+        <br>
+        <label for="path">Directorio de Descarga:</label>
+        <input type="text" id="path" name="path" required>
+        <br>
+        <label for="download_type">Tipo de Descarga:</label>
+        <select id="download_type" name="download_type">
+            <option value="single">Canción Individual</option>
+            <option value="playlist">Lista de Reproducción</option>
+        </select>
+        <br>
+        <input type="submit" value="Descargar">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>
