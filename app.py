@@ -18,12 +18,9 @@ def download():
             return render_template('index.html', message='Se necesita al menos una URL para descargar.')
 
         if download_type == 'single':
-            #downloader = SongDownloader(urls=urls)
             downloader = SongDownloader(urls=urls, export_path=path)
         elif download_type == 'playlist':
-            downloader = PlaylistDownloader()
-            return render_template('index.html', message='Descarga de listas de reproducción no implementada aún.')
-
+            downloader = PlaylistDownloader(urls[0], path)
         downloader.download_songs()
 
         return render_template('index.html', message='Descarga completada. Verifica la consola para detalles.')
