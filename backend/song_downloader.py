@@ -1,5 +1,6 @@
 import os
 from pytube import YouTube
+import re
 
 class SongDownloader: 
     """
@@ -9,21 +10,21 @@ class SongDownloader:
         urls (list): Listado de url de videos y/o canciones para descargar. 
 
     """
-    def __init__(self, urls: list = None, export_path: str = "", auth: bool = True):
+    def __init__(self, urls: list = None, export_path: str = ""):
         self.urls = urls or []
         self.export_path = export_path or os.path.dirname(os.path.realpath(__file__))
-        self.auth = auth
-
+        
     def download_song(self, url: str) -> None: 
         try:
             song = (
-                YouTube(url, use_oauth = self.auth)
+                YouTube(url, use_oauth = True)
                 .streams
                 .filter(only_audio=True)
                 .first()
             )
+            song_title = song.title
             downloaded_file = song.download(self.export_path)
-            self.export_song(downloaded_file)
+            self.export_song(downloaded_file, song_title)
         except Exception as e: 
             print(f"Error al intentar descargar la canción: {e}")
     
@@ -34,16 +35,16 @@ class SongDownloader:
         for url in self.urls: 
             self.download_song(url)
 
-    def export_song(self, downloaded_file: str) -> None: 
+    def export_song(self, downloaded_file: str, song_title: str) -> None: 
         try: 
             base, ext = os.path.splitext(downloaded_file)
             new_file = base + '.mp3'
             os.rename(downloaded_file, os.path.join(self.export_path, new_file))
             print(f"La canción se ha descargado correctamente en la siguiente ruta:" + self.export_path)
         except FileExistsError as e: 
-            print("La canción que está intentando de descargar, ya existe en su dispositivo.")
+            print(f"La canción {song_title} descargar, ya existe en su dispositivo.")
+            for downloaded_file in os.listdir(self.export_path):
+                if re.search('mp4', downloaded_file):
+                    mp4_path = os.path.join(self.export_path,downloaded_file)
+                    os.remove(mp4_path)
 
-
-song = SongDownloader(export_path='C:\\Users\\SID\\Documents\\proyects\\youtube-to-mp3\\songs')
-
-song.download_song('https://music.youtube.com/watch?v=gqF2jGXi_Ak&list=RDAMVMfW8AS2VcIT8')
