@@ -22,7 +22,7 @@ class SongDownloader:
                 .filter(only_audio=True)
                 .first()
             )
-            downloaded_file = song.download()
+            downloaded_file = song.download(self.export_path)
             self.export_song(downloaded_file)
         except Exception as e: 
             print(f"Error al intentar descargar la canción: {e}")
@@ -43,3 +43,7 @@ class SongDownloader:
         except FileExistsError as e: 
             print("La canción que está intentando de descargar, ya existe en su dispositivo.")
 
+
+song = SongDownloader(export_path='C:\\Users\\SID\\Documents\\proyects\\youtube-to-mp3\\songs')
+
+song.download_song('https://music.youtube.com/watch?v=gqF2jGXi_Ak&list=RDAMVMfW8AS2VcIT8')
