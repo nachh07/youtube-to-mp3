@@ -4,11 +4,28 @@ import re
 
 class SongDownloader: 
     """
-    Clase que permite descargar el audio de un video y exportarlo a mp3. 
-    
-    params: 
-        urls (list): Listado de url de videos y/o canciones para descargar. 
+     Class for downloading songs from YouTube and exporting them in mp3 format.
 
+    Parameters:
+    - urls (list, optional): List of URLs of songs to download. If not provided, the list will be empty.
+    - export_path (str, optional): Path where downloaded songs will be saved. If not provided, the current file's directory will be used.
+
+    Methods:
+    - __init__(self, urls: list = None, export_path: str = ""):
+        Initializes a new instance of the SongDownloader class.
+
+    - download_song(self, url: str) -> None:
+        Downloads a song from YouTube and exports it in mp3 format.
+
+    - download_songs(self) -> None:
+        Downloads all songs from the provided list of URLs.
+
+    - export_song(self, downloaded_file: str, song_title: str) -> None:
+        Exports the downloaded file in mp3 format and handles error cases.
+
+    Attributes:
+    - urls (list): List of URLs of songs to download.
+    - export_path (str): Path where downloaded songs will be saved.
     """
     def __init__(self, urls: list = None, export_path: str = ""):
         self.urls = urls or []
