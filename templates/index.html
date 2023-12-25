@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Song Downloader</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        textarea,
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 16px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <form action="/download" method="post">
+        <label for="urls">Introduzca la URL o URLs (separadas por comas o saltos de línea):</label>
+        <textarea id="urls" name="urls" rows="4" required></textarea>
+        <br>
+        <label for="path">Directorio de Descarga:</label>
+        <input type="text" id="path" name="path" required>
+        <br>
+        <label for="download_type">Tipo de Descarga:</label>
+        <select id="download_type" name="download_type">
+            <option value="single">Canción Individual</option>
+            <option value="playlist">Lista de Reproducción</option>
+        </select>
+        <br>
+        <input type="submit" value="Descargar">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>
